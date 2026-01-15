@@ -64,7 +64,7 @@ input[type="text"] {
 	border: 2px solid #373737;
 	border-right-color: #FFF;
 	border-bottom-color: #FFF;
-	vertical-align: middle;
+	/*vertical-align: middle; */ 
 }
 .grid-large img {
 	margin-top: 8px;
@@ -74,7 +74,7 @@ input[type="text"] {
 	width: 32px;
 	height: 32px;
 }
-.grid-large {;
+.grid-large {
 	width: 48px;
 	height: 48px;
 }
