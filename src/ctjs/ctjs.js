@@ -150,10 +150,6 @@ ctjs.itemList = {
             ctjs.itemList.performSearch(inputSearch.value);
         }
     },
-    /**
-     * Performance here really sucks.
-     * I need to revisit it to remove this O(n) complexity
-     */
     performSearch: function(subject) {
         if(subject === ctjs.itemList.lastSearch) {
             return;
@@ -195,15 +191,21 @@ ctjs.grid = {
             // Detach from the original grid
             var sourceGrid = ingredientToAttach.getGrid();
             if(sourceGrid !== null) {
-                sourceGrid.detachIngredient();
+                // Check if source is from item list - if so, don't detach it 
+                var isFromItemList = $('#item-list').find(sourceGrid).length > 0;
+                
+                if(!isFromItemList) {
+                    // Only detach if NOT from item list 
+                    sourceGrid.detachIngredient();
 
-                if($(sourceGrid).hasClass('grid-crafting')) {
-                    ctjs.craftingTable.change();
-                }
+                    if($(sourceGrid).hasClass('grid-crafting')) {
+                        ctjs.craftingTable.change();
+                    }
 
-                // If we are detaching from the output, clear the crafting table workspace
-                if($(sourceGrid).hasClass('output')) {
-                    ctjs.craftingTable.clear();
+                    // If detaching from the output, clear the crafting table workspace
+                    if($(sourceGrid).hasClass('output')) {
+                        ctjs.craftingTable.clear();
+                    }
                 }
             }
 
@@ -216,6 +218,7 @@ ctjs.grid = {
                 ctjs.craftingTable.change();
             }
         }
+        
         grid.detachIngredient = function(isReattaching) {
             if(hasIngredient) {
                 hasIngredient = false;
@@ -223,6 +226,7 @@ ctjs.grid = {
                 this.innerHTML = '';
             }
         }
+        
         grid.getIngredient = function() {
             var ing = ings.air;
             if(ingredientElm !== null) {
@@ -231,16 +235,18 @@ ctjs.grid = {
 
             return ing;
         }
+        
         grid.hasIngredient = function() {
             return hasIngredient;
         }
+        
         grid.show = function() {
             this.style.display = '';
         }
+        
         grid.hide = function() {
             this.style.display = 'none';
         }
-
 
         return grid;
     }
@@ -284,7 +290,19 @@ ctjs.drag = {
         var pointedElement = document.elementFromPoint(event.x, event.y);
         instance.element.style.display = '';
 
-        ctjs.drag.ingredientToGrid(instance.element, pointedElement);
+        // Check if dragging from item list
+        var sourceGrid = instance.element.getGrid();
+        var isFromItemList = sourceGrid && $('#item-list').find(sourceGrid).length > 0;
+
+        if(isFromItemList && !!pointedElement.isGrid && !pointedElement.hasIngredient()) {
+            // Clone the ingredient instead of moving it
+            var clonedIngredient = new ctjs.ingredient.element(instance.element.ingredient);
+            pointedElement.attachIngredient(clonedIngredient);
+            ctjs.drag.resetElementPosition(instance.element);
+        } else {
+            // Normal drag behavior for non-item-list items
+            ctjs.drag.ingredientToGrid(instance.element, pointedElement);
+        }
     },
     moveIngredient: function(element, left, top) {
         element.style.left = left;
