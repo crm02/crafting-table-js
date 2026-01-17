@@ -9,26 +9,26 @@ var Table = function(ingredients) {
         innerTable = pub.planify(innerTable);
 
 		var retObject = null;
-        var ingList = ingredients.getList();
-		for(objectName in ingList) {
-			var object = ingredients.getById(objectName);
-            var currentRecipe = object.recipe;
+        var ingList = ingredients.getList(); // gets all known ingredients
+		for(objectName in ingList) { // iterates through all known ingredients
+			var object = ingredients.getById(objectName); // gets current ingredient object
+            var currentRecipe = object.recipe; // gets current ingredient recipe
 			var matches = 0;
 
             // If it is a base object, ignore
             if(currentRecipe == null) {
                 continue;
             }
-            currentRecipe = pub.convertNumericToObjectRecipe(currentRecipe);
-            currentRecipe = pub.planify(currentRecipe);
+            currentRecipe = pub.convertNumericToObjectRecipe(currentRecipe); // Converts numeric recipe to object recipe
+            currentRecipe = pub.planify(currentRecipe); // aligns recipe grid to match player grid
 
-            for(a in currentRecipe) {
-                if(currentRecipe[a].id == innerTable[a].id) {
-                    matches++;
+            for(a in currentRecipe) { // iterates through current recipe
+                if(currentRecipe[a].id == innerTable[a].id) { // compares recipe item to player item
+                    matches++; // increments matches if they are the same
                 }
             }
-
-			if(matches == currentRecipe.length) {
+            // if all items match, return the object
+			if(matches == currentRecipe.length) { 
 				retObject = ingredients.getById(objectName);
 			}
 		}
@@ -64,3 +64,4 @@ var Table = function(ingredients) {
         return outRecipe;
     }
 }
+

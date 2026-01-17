@@ -80,3 +80,35 @@ var Ingredients = function(ingredients) {
 	// Initialization
 	pub.setListFromJson(ingredients);
 }
+// To get a random recipe for captcha
+function getRandCraftableIngredient(){
+	var list = ings.getList();
+	var craftables = [];
+
+	for(var id in list){
+		var ing = list[id];
+		if (ing.recipe != null){
+			craftables.push(ing);
+		}
+	}
+
+	if (craftables.length == 0){
+		return null;
+	}
+
+	var index = Math.floor(Math.random() * craftables.length);
+	return craftables[index];
+}
+
+function displayCraftedItemName(ingredient){
+	var el = document.getElementById('crafted-item-name');
+
+	if(!ingredient){
+		el.textContent = 'No item crafted';
+		return;
+	}
+	el.textContent ='Crafted Item: ' + ingredient.full_name;
+}
+
+
+

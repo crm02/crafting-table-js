@@ -6,15 +6,16 @@ ctjs.init = function() {
     $.ajax({
         url: 'src/ingredients.json',
         success: function(data) {
-            ings = new Ingredients(data);
-            table = new Table(ings);
+    ings = new Ingredients(data);
+    table = new Table(ings);
 
-            ctjs.craftingTable.init();
-            ctjs.inventory.init();
-            ctjs.itemList.init();
+    ctjs.craftingTable.init();
+    ctjs.inventory.init();
+    ctjs.itemList.init();
 
-            airElement = ctjs.ingredient.element(ings.get('air'));
-        }
+    // Generate captcha AFTER everything is ready
+    ctjs.generateCaptcha();
+}
     });
 }
 
@@ -65,19 +66,31 @@ ctjs.craftingTable = {
         }
         return ingredient;
     },
-    change: function() {
-        // Clean up the output grid element
-        ctjs.craftingTable.clearOutput();
-        
+change: function () {
+    ctjs.craftingTable.clearOutput();
 
-        // Check if there's any match
-        var outputIngredient = table.match(ctjs.craftingTable.getIngredients());
-        if(outputIngredient) {
-            var outputElement = ctjs.ingredient.element(outputIngredient);
-            ctjs.craftingTable.outputGridElm.attachIngredient(outputElement);
-        }
+    var outputIngredient = table.match(
+        ctjs.craftingTable.getIngredients()
+    );
+
+    // SHOW OUTPUT (normal behavior)
+    if (outputIngredient) {
+        var outputElement = new ctjs.ingredient.element(outputIngredient);
+        ctjs.craftingTable.outputGridElm.attachIngredient(outputElement);
+    }
+
+    // CAPTCHA CHECK (separate concern)
+    if (
+        outputIngredient &&
+        ctjs.captcha.target &&
+        !ctjs.captcha.solved &&
+        outputIngredient.id === ctjs.captcha.target.id
+    ) {
+        ctjs.onCaptchaSolved(outputIngredient);
     }
 }
+
+};
 
 ctjs.inventory = {
     initialIngredients: [
@@ -127,7 +140,7 @@ ctjs.itemList = {
     attachIngredients: function() {
         var itemList = document.querySelector('#item-list');
         var ingredientList = ings.getList();
-        for(var i=0 in ingredientList) {
+        for(var i = 0; i < ingredientList.length; i++) {
             var ingredient = ingredientList[i];
 
             if(ingredient.name === 'air') {
@@ -325,3 +338,51 @@ ctjs.drag = {
         ctjs.drag.moveIngredient(element, 0, 0);
     }
 };
+
+
+
+ctjs.captcha = {
+    target: null,
+    solved: false
+};
+
+
+ctjs.generateCaptcha = function() {
+	var randomIngredient = getRandCraftableIngredient();
+
+	if(!randomIngredient){
+		displayCraftedItemName(null);
+		return;
+	}
+        ctjs.captcha.target = randomIngredient;
+        ctjs.captcha.solved = false;
+
+
+	displayCraftedItemName(randomIngredient);
+}
+
+
+
+
+ctjs.onCaptchaSolved = function (ingredient) {
+    ctjs.captcha.solved = true;
+
+    var msg = document.getElementById('crafted-item-name');
+    msg.textContent = '✔ Correct! You crafted ' + ingredient.full_name;
+
+    document.body.classList.add('captcha-solved');
+
+    document.dispatchEvent(
+        new CustomEvent('captchaSolved', { detail: ingredient })
+    );
+};
+
+
+
+
+// Use with server
+//if (ctjs.captcha.solved === true) {
+    // allow action
+//}
+
+
