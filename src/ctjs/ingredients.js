@@ -107,7 +107,7 @@ function displayCraftedItemName(ingredient){
 		el.textContent = 'No item crafted';
 		return;
 	}
-	el.textContent ='Crafted Item: ' + ingredient.full_name;
+	el.textContent =" " +ingredient.full_name;
 }
 
 

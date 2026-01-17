@@ -375,6 +375,10 @@ ctjs.onCaptchaSolved = function (ingredient) {
     document.dispatchEvent(
         new CustomEvent('captchaSolved', { detail: ingredient })
     );
+
+    setTimeout(function() { // Lets the UI update first
+        alert('Captcha solved! You have crafted ' + ingredient.full_name + ' CONGRATULATIONS!');
+    }, 0);
 };
 
 
@@ -382,7 +386,7 @@ ctjs.onCaptchaSolved = function (ingredient) {
 
 // Use with server
 //if (ctjs.captcha.solved === true) {
-    // allow action
+    //
 //}
 
 

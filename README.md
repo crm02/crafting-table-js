@@ -2,29 +2,53 @@
 
 A human verification system using Minecraft crafting mechanics. Users prove they're human by correctly crafting requested items.
 
-[Demo link or screenshot here]
+[\[Demo link or screenshot here\]](https://crm02.github.io/minecraft-captcha/)
 
 ## About
-
 This project is forked from [Crafting Table JS](https://github.com/willybarro/crafting-table-js) by [willybarro](https://github.com/willybarro) and adapted into a captcha verification system.
 
 ## How It Works
+Once the page is loaded, the user is prompted to craft an item. If done successfully, the user is told of the success. At this time, this captcha is client-side only
 
 
 
 ## Installation
-```bash
+Before you install, know that the project is running online using Github Pages, and installation is not necessary to test
+https://crm02.github.io/minecraft-captcha/
 
+### Option 1: Direct Usage (Simplest)
+1. Clone the repository
+```bash
+git clone https://github.com/crm02/minecraft-captcha.git
+cd crafting-table-js
 ```
 
+2. Open `index.html` in your browser
+
+### Option 2: With Development Server
+1. Clone and install dependencies
+```bash
+git clone https://github.com/crm02/minecraft-captcha.git
+cd crafting-table-js
+npm install
+```
+
+2. Run the development server
+```bash
+npm start
+```
+
+3. Open your browser to the local server address (typically `http://localhost:8000`)
+
 ## Usage
+This is a client-side only captcha. Anyone is free to adapt the code to work with a server!
 
 
 
 ## Credits
 
 Original Minecraft Crafting Table implementation by [willybarro](https://github.com/willybarro).
-See [README_ORIGINAL.md](README_ORIGINAL.md) for the original project documentation.
+See READEME_ORIGINAL.md for the original project documentation.
 
 ## License
 
