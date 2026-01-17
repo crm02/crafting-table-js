@@ -2,7 +2,7 @@
 
 A human verification system using Minecraft crafting mechanics. Users prove they're human by correctly crafting requested items.
 
-[\[Demo link or screenshot here\]](https://crm02.github.io/minecraft-captcha/)
+[\[Demo Here:\]](https://crm02.github.io/minecraft-captcha/)
 
 ## About
 This project is forked from [Crafting Table JS](https://github.com/willybarro/crafting-table-js) by [willybarro](https://github.com/willybarro) and adapted into a captcha verification system.
