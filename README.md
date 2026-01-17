@@ -1,18 +1,51 @@
-# Crafting Table JS
+# Minecraft Crafting Captcha
 
-A Minecraft Crafting Table written in Javascript. The goal of this project is to let you build every item that you could on the in-game crafting table.
+A human verification system using Minecraft crafting mechanics. Users prove they're human by correctly crafting requested items.
 
-<a href="http://willybarro.github.io/crafting-table-js/" target="_blank">Try it!</a>
+[Demo link or screenshot here]
 
-## Why you spent time coding this?
-Because it's cool. Isn't it? :)
+## About
 
-## Known issues
-- Drop (of drag-and-drop) does not work on mobile devices
+This project is forked from [Crafting Table JS](https://github.com/willybarro/crafting-table-js) by [willybarro](https://github.com/willybarro) and adapted into a captcha verification system.
 
-## TODO
-- Add an item search feature, to let the user search for any block he wishes.
-- Disable user drag ingredient to output grid element
-- Double click remove output and add to the inventory
-- Stack similar ingredients
-- Responsive layout for mobile devices
+## How It Works
+
+
+
+## Installation
+```bash
+
+```
+
+## Usage
+
+
+
+## Credits
+
+Original Minecraft Crafting Table implementation by [willybarro](https://github.com/willybarro).
+See [README_ORIGINAL.md](README_ORIGINAL.md) for the original project documentation.
+
+## License
+
+The MIT License (MIT)
+
+Copyright (c) 2014 Willy Barro
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.

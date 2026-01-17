@@ -140,7 +140,7 @@ ctjs.itemList = {
     attachIngredients: function() {
         var itemList = document.querySelector('#item-list');
         var ingredientList = ings.getList();
-        for(var i = 0; i < ingredientList.length; i++) {
+        for(var i in ingredientList) {
             var ingredient = ingredientList[i];
 
             if(ingredient.name === 'air') {
